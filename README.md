@@ -5,7 +5,7 @@
 Untuk menjalankan project ini ada beberapa hal yang perlu di setting dan di install terlebih dahulu: 
 ### 1. Install Database
 Saya menggunakan 2 database, yaitu postgresql dan redis. postgresql digunakan untuk persistent data sedang kan redis digunakan untuk cache data.
-### 2. Menjalankan Aplikasi
+### 2. Menjalankan Aplikasi Manual
 Untuk menjalankan aplikasi bisa menggunaka command:
 ``go run main.go``
 di root project nya.
@@ -27,6 +27,72 @@ contoh:
     export DB_USER=postgres
     export DB_PASSWORD=secret
     export DB_NAME=dot
+---
+    Create DATABASE dot;
+---
+Create table MANUALLY
+
+    -- auto-generated definition
+    create table courses
+    (
+    id             varchar(255) not null
+    primary key,
+    name           varchar(255),
+    credits_course varchar(100),
+    created_at     bigint,
+    updated_at     bigint
+    );
+    
+    alter table courses
+    owner to postgres;
+
+    -- auto-generated definition
+    create table lecturers
+    (
+    id         varchar(255) not null
+    primary key,
+    name       varchar(255),
+    created_at bigint,
+    updated_at bigint
+    );
+    
+    alter table lecturers
+    owner to postgres;
+    
+    -- auto-generated definition
+    create table lectures
+    (
+    id          varchar(255) not null
+    primary key,
+    name        text,
+    student_id  text,
+    lecturer_id text,
+    course_id   text,
+    score       varchar(3),
+    created_at  bigint,
+    updated_at  bigint
+    );
+    
+    alter table lectures
+    owner to postgres;
+    
+    -- auto-generated definition
+    create table students
+    (
+    id         varchar(255) not null
+    primary key,
+    name       varchar(255),
+    address    varchar(255),
+    gender     varchar(1),
+    email      varchar(255),
+    phone      varchar(15),
+    created_at bigint,
+    updated_at bigint
+    );
+    
+    alter table students
+    owner to postgres;
+
 
 Sesuaikan dengan credential yang telah dibuat di postgres nya.
 
@@ -35,6 +101,7 @@ Sesuaikan dengan credential yang telah dibuat di postgres nya.
     REDIS_HOST=
 
 contoh:
+
     export REDIS_HOST=localhost
     export REDIS_PORT=6379
 
@@ -46,6 +113,12 @@ contoh:
 
     export APP_HOST=localhost
     export APP_PORT=8123
+
+### 3. Menjalankan Aplikasi Dengan docker
+Jika sudah menginstall docker dan docker compose, maka bisa menggunakan perintah: 
+
+    docker-compose up
+
 
 ## DB Desain
 ![img.png](img.png)
