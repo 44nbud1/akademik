@@ -139,5 +139,12 @@ func (s *academicService) DeleteStudent(ctx context.Context, id string) (*model.
 		s.log.Error(fmt.Sprintf("[Service_delete_student] Failed to delete student, err: %v", err.Error()))
 		return nil, pkgservice.NewErrorService(pkgservice.ErrInternal)
 	}
+
+	// flush data from redis
+	if err := s.redisClient.FlushData(); err != nil {
+		s.log.Error(fmt.Sprintf("[Service_delete_student] Failed to clear redis data: %v", err.Error()))
+		return nil, pkgservice.NewErrorService(pkgservice.ErrInternal)
+	}
+
 	return &student, nil
 }
