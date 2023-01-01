@@ -126,6 +126,7 @@ Jika sudah menginstall docker dan docker compose, maka bisa menggunakan perintah
 Untuk relasi antar table nya kurang lebih seperti diatas.
 
 ## API Desain
+    HOST : 35.188.31.50 
 ### 1. Student
 #### Create Student
     path    : /v1.0/students
