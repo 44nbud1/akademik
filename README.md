@@ -606,4 +606,20 @@ Untuk relasi antar table nya kurang lebih seperti diatas.
 | 99           | Bad Request       | Gagal|
 | 99           | General error       | Gagal|
 
+## Pattern yang digunakan
+Didalam project ini saya menggunakan beberapa pattern agar code yang saya buat lebih mudah untuk di maintain. 
+### Creational
+#### Singleton 
+Digunakan untuk koneksi ke database redis dan postgres, Supaya open close koneksi cukup 1 instance saja.
+#### Builder
+Digunakan untuk mem-build response.
+
+### Behavioural
+#### Decorator
+Saya menggunakan Decorator untuk Behavioural pattern, karena lebih flexible dari pada static instance.
+
+### Structural
+#### Adaptor
+Saya menggunakan nya untuk mendapatkan standard response. Agar bisa membuat response terpusat
+
 ----
