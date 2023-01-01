@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    depends_on:
+      - postgres-be
+      - redis-be
+    ports:
+      - "8123:8123"
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=secret
+      - DB_NAME=dot
+      - DB_HOST=postgres-be
+      - DB_PORT=5432
+      - REDIS_HOST=redis-be
+      - REDIS_PORT=6379
+      - APP_HOST=app
+      - APP_PORT=8123
+    networks:
+      - academic
+
+  postgres-be:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=dot
+    ports:
+      - "5432:5432"
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - academic
+
+  redis-be:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
+    networks:
+      - academic
+
+volumes:
+  database-data:
+  cache:
+    driver: local
+
+networks:
+  academic:
